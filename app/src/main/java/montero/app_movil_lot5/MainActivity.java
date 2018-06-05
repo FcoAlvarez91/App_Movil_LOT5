@@ -1,15 +1,16 @@
 package montero.app_movil_lot5;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import montero.app_movil_lot5.fragments.BasicRulesFragment;
+import montero.app_movil_lot5.fragments.HomeFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,6 +20,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.content_frame,new HomeFragment()).addToBackStack("MainActivity");
+        ft.commit();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -35,25 +41,32 @@ public class MainActivity extends AppCompatActivity {
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         // set item as selected to persist highlight
                         menuItem.setChecked(true);
+                        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
                         switch (menuItem.getItemId()) {
 
                             case R.id.nav_home:
                                 mDrawerLayout.closeDrawers();
+                                ft.replace(R.id.content_frame,new HomeFragment()).addToBackStack("MainActivity");
+                                ft.commit();
                                 return true;
 
                             case R.id.nav_rules:
                                 mDrawerLayout.closeDrawers();
-                                Intent intent = new Intent(getBaseContext(), RulesActivity.class);
-                                startActivity(intent);
+                                ft.replace(R.id.content_frame,new BasicRulesFragment()).addToBackStack("MainActivity");
+                                ft.commit();
                                 return true;
 
                             case R.id.nav_map:
                                 mDrawerLayout.closeDrawers();
+                                ft.replace(R.id.content_frame,new BasicRulesFragment()).addToBackStack("MainActivity");
+                                ft.commit();
                                 return true;
 
                             case R.id.nav_profile:
                                 mDrawerLayout.closeDrawers();
+                                ft.replace(R.id.content_frame,new BasicRulesFragment()).addToBackStack("MainActivity");
+                                ft.commit();
                                 return true;
                         }
 
