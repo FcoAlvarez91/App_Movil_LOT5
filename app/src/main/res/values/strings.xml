@@ -2,5 +2,7 @@
     <string name="app_name">LOT5 Tome</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="description">Land of the Five is a tabletop role-playing fantasy game that focuses on both role-playing and combat. Its name comes from the five Major Gods that rule the land. It is in early stages, being played online as well as offline. The game is still receiving minor alterations and changes, but has reached a playable balance. It was created by Francisco \"Mechero\" Alvarez with the help of Ignacio \"Montaque\" Carril.</string>
+    <string name="quote">\"Magic has turned to a darker side and evil is slowly taking over different aspects of life.\" - Kriss Hoferrlock, High Mage of the Mages Guild.</string>
+    <string name="history">Through the years, peace has reigned the Land of the Five with only minor conflicts sprouting here and there, but as time goes by, a darkness spreads, more and more present. The people are growing restless it seems like a storm is brewing. The Gods have not been seen in many years and the strange happenings have begun to occur, unexplained and unexpected. Small demons have appeared and creatures have become more aggressive.</string>
 </resources>
