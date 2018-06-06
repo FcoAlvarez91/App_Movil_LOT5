@@ -9,7 +9,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import montero.app_movil_lot5.fragments.BasicRulesFragment;
+import montero.app_movil_lot5.fragments.RulesFragment;
 import montero.app_movil_lot5.fragments.HomeFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -20,7 +20,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.content_frame,new HomeFragment()).addToBackStack("MainActivity");
@@ -53,19 +52,19 @@ public class MainActivity extends AppCompatActivity {
 
                             case R.id.nav_rules:
                                 mDrawerLayout.closeDrawers();
-                                ft.replace(R.id.content_frame,new BasicRulesFragment()).addToBackStack("MainActivity");
+                                ft.replace(R.id.content_frame,new RulesFragment()).addToBackStack("MainActivity");
                                 ft.commit();
                                 return true;
 
                             case R.id.nav_map:
                                 mDrawerLayout.closeDrawers();
-                                ft.replace(R.id.content_frame,new BasicRulesFragment()).addToBackStack("MainActivity");
+                                ft.replace(R.id.content_frame,new RulesFragment()).addToBackStack("MainActivity");
                                 ft.commit();
                                 return true;
 
                             case R.id.nav_profile:
                                 mDrawerLayout.closeDrawers();
-                                ft.replace(R.id.content_frame,new BasicRulesFragment()).addToBackStack("MainActivity");
+                                ft.replace(R.id.content_frame,new RulesFragment()).addToBackStack("MainActivity");
                                 ft.commit();
                                 return true;
                         }
