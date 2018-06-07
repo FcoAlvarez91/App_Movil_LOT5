@@ -7,16 +7,33 @@
             android:icon="@drawable/ic_home_black_24dp"
             android:title="Home" />
         <item
-            android:id="@+id/nav_rules"
-            android:icon="@android:drawable/ic_dialog_info"
-            android:title="Rules" />
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/ic_person_black_24dp"
+            android:title="Profile" />
         <item
             android:id="@+id/nav_map"
             android:icon="@android:drawable/ic_dialog_map"
             android:title="Map" />
         <item
-            android:id="@+id/nav_profile"
-            android:icon="@drawable/ic_person_black_24dp"
-            android:title="Profile" />
+            android:id="@+id/nav_rules"
+            android:icon="@android:drawable/ic_dialog_info"
+            android:title="Rules" >
+
+            <menu>
+                <item
+                    android:id="@+id/rules_rolling"
+                    android:icon="@drawable/ic_casino_black_24dp"
+                    android:title="Rolling" />
+                <item
+                    android:id="@+id/rules_travel"
+                    android:icon="@drawable/ic_dashboard_black_24dp"
+                    android:title="Travel" />
+                <item
+                    android:id="@+id/rules_character"
+                    android:icon="@drawable/ic_security_black_24dp"
+                    android:title="Character" />
+            </menu>
+
+        </item>
     </group>
 </menu>

@@ -9,8 +9,10 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import montero.app_movil_lot5.fragments.RulesFragment;
+
+import montero.app_movil_lot5.fragments.RollingRulesFragment;
 import montero.app_movil_lot5.fragments.HomeFragment;
+import montero.app_movil_lot5.fragments.TravelRulesFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -50,22 +52,26 @@ public class MainActivity extends AppCompatActivity {
                                 ft.commit();
                                 return true;
 
-                            case R.id.nav_rules:
+                            case R.id.rules_rolling:
                                 mDrawerLayout.closeDrawers();
-                                ft.replace(R.id.content_frame,new RulesFragment()).addToBackStack("MainActivity");
+                                ft.replace(R.id.content_frame,new RollingRulesFragment()).addToBackStack("MainActivity");
+                                ft.commit();
+                                return true;
+
+                            case R.id.rules_travel:
+                                mDrawerLayout.closeDrawers();
+                                ft.replace(R.id.content_frame,new TravelRulesFragment()).addToBackStack("MainActivity");
                                 ft.commit();
                                 return true;
 
                             case R.id.nav_map:
                                 mDrawerLayout.closeDrawers();
-                                ft.replace(R.id.content_frame,new RulesFragment()).addToBackStack("MainActivity");
-                                ft.commit();
+
                                 return true;
 
                             case R.id.nav_profile:
                                 mDrawerLayout.closeDrawers();
-                                ft.replace(R.id.content_frame,new RulesFragment()).addToBackStack("MainActivity");
-                                ft.commit();
+
                                 return true;
                         }
 
