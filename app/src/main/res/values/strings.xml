@@ -6,13 +6,33 @@
     <string name="quote">\"Magic has turned to a darker side and evil is slowly taking over different aspects of life.\" - Kriss Hoferrlock, High Mage of the Mages Guild.</string>
     <string name="history">Through the years, peace has reigned the Land of the Five with only minor conflicts sprouting here and there, but as time goes by, a darkness spreads, more and more present. The people are growing restless it seems like a storm is brewing. The Gods have not been seen in many years and the strange happenings have begun to occur, unexplained and unexpected. Small demons have appeared and creatures have become more aggressive.</string>
 
-    <!-- Rules -->
+    <!-- Rules: Rolling -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="Rolling_Intro">Dice are a fundamental part of deciding what happens in the game and how things transcribe. When a character wants to achieve something with a chance to fail or a range of possibilities, he must roll a dice to see how well he does or what occurs.</string>
     <string name="Rolls_Basic">Different rolls have different names depending on the situation. All rolls are a 1d20 + the stat applied, but the different situations affect the modifiers to the rolls.</string>
-    <string name="Combat_Roll_disclaimer" style="Italic">For combat rolls, see the Combat page.</string>
+    <string name="Combat_Roll_disclaimer">For combat rolls, see the Combat page.</string>
     <string name="Trait_Check">This roll describes if a character succeeds on an attempt at doing something with a chance of failure. The character is choosing to do this on his own will. Not as a reaction or as a defence. \nAn example would be if a character wants to leap over a wall to get to an escaping foe. There is a chance of failure that would lead to the foe getting away. For this, they would have to roll an Agi Acrobatics Check and beat a difficulty of say 10, due to the wall being of medium height.</string>
     <string name="Stat_Saving_Throw">This roll describes if a character is able to defend against an incoming peril that can be avoided with this Stat. The character is doing this as a reaction and defence against this danger, and not as a thought out choice.\nAn example would be if a character is poisoned by noxious gasses, and his body needs to resist the ailment. There is a chance of failure that would lead to being poisoned. For this, they would have to roll a Vit Saving Throw and beat a difficulty of say 12, due to the poison being of decent strength.</string>
     <string name="Bonus_Roll">When a character has some sort of advantage in what he is about to do, he can gain Bonus(+X) to his roll, where X is the appropriate increase to the roll to be made. This can affect Attacks.\nFor example, if a character is going to roll a Int Nature Check to learn of a certain beast, and he has a book of creatures, he gains a Bonus(+4).</string>
     <string name="Penalty_Roll">The opposite of Bonus(+X), it is a reduction of X to a roll due to adverse or negative effects that hinder a characters capability to complete the task at hand. This can affect Attacks.\nFor example, a character is next to an explosion, and needs to roll an Agi Saving Throw, but his laces were tied together by the prankster Rogue, giving him a Penalty(-5).\nBonus(+X)'s and Penalty(-Y)'s add together, leaving a final result of Bonus(X-Y) or Penalty(X-Y) depending if the result of X-Y is positive or negative respectively. The final result is what counts to other effects like Rogue's Cheap Shot.</string>
+
+    <!-- Rules: Rolling -->
+    <string name="Travel_Intro">Going from one place to another, by foot, on a cart or on a huge eagle. Travel is essential to all civilisations and adventurers need to travel to find new locations and explore new lands.\nFor travel, one can use up to 3 moves per day, and 3 per night if no rest is taken. Depending on if mounted or on foot, the Pace of Travel differs. Each move, you cover your Pace and may use an action if available. On foot the Pace is of 15 km per move and mounted the Pace is of 30 km per move. Pace is halved if travelling through difficult terrain or in bad weather.\nOn each move, there must be an Event roll. This is a 1d100 and if it is high enough given the circumstances, there must be a Weather, Encounter and Environment roll. For each a 1d20 is rolled to define if something happens.</string>
+    <string name="Actions_Intro">These actions are gained by rolling a specific Trait Check each day, and help an adventurer in their travel. Up to one action can be used on a move, altering the move accordingly.</string>
+    <string name="Roll_Effect">• 1 - 9 Grants no Action.
+\n• 10 - 14 Grants 1 Actions.
+\n• 15 -19 Grants 2 Actions.
+\n• 20+ Grants 3 Actions.
+\n• Natural 20 Grants 4 Actions.</string>
+    <string name="Wis_Nav_Check">• Track: You hunt animals while you travel, gaining meat for the party or track a target for the duration.
+\n• Scout: You don\'t lose your bearings. If an event occurs, Environment roll omitted.
+\n• Trek: You may travel at full pace through difficult terrain.</string>
+    <string name="Vit_Endurance_Check">• Recover: You may remove one Fatigue Point from each of the characters.
+\n• Endure: You may travel at full pace in bad weather. If an event occurs, Weather roll omitted.
+\n• Haste: You hurry your group, doubling the pace of this travel.
+    </string>
+    <string name="Agi_Sneak_Check">• Ambush: You may gain a full surprise round on an unaware enemy.
+\n• Hide: You may avoid encounter during the travel. If an event occurs, Encounter roll omitted.
+\n• Creep: You avoid being followed. You leave no tracks while you travel.
+    </string>
 </resources>
