@@ -49,6 +49,13 @@
                 android:text="@string/Rolls_Basic" />
 
             <TextView
+                android:id="@+id/textView14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/Combat_Roll_disclaimer"
+                android:textStyle="italic" />
+
+            <TextView
                 android:id="@+id/textView6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
