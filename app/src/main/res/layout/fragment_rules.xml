@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RulesActivity">
+    tools:context="fragments.RulesFragment">
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
@@ -14,10 +14,15 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_gravity="bottom"
-        android:background="?android:attr/windowBackground"
+        android:background="#ffffff"
+        android:backgroundTint="@color/colorPrimary"
         app:elevation="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/navigation" >
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:itemTextColor="@color/colorSoft"
+        app:itemIconTint="@color/colorSoft"
+        app:menu="@menu/navigation">
 
     </android.support.design.widget.BottomNavigationView>
 
@@ -29,6 +34,7 @@
         android:layout_marginTop="16dp"
         android:text="Rules"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
