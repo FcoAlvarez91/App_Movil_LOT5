@@ -35,4 +35,58 @@
 \n• Hide: You may avoid encounter during the travel. If an event occurs, Encounter roll omitted.
 \n• Creep: You avoid being followed. You leave no tracks while you travel.
     </string>
+
+    <!-- Rules: Stats -->
+    <string name="Stats_Intro">In game Stats are your character\'s attributes that describe and define his physical and psychological state. They show how your character is built and how his mind works, as well as his inclination to magic.</string>
+    <string name="Stats_Str">Physical power and muscular build, it represents how strong your character is. It affects the use of most melee weapons and hefty ranged weapons.
+
+\nStrength modifier applies to:
+
+\n • Carrying capacity.
+\n • Attack and Damage rolls when using a melee weapon or hefty ranged weapon.
+\n • Strength Checks (for lifting boulders or the like).</string>
+    <string name="Stats_Vit">Physical resistance to harm and disease, it represents how much health and how sturdy your character is. It affects taking damage and it also increases you HP.
+
+\nVitality modifier applies to:
+
+\n • Increasing HP by level.
+\n • Reducing damage when being attacked.
+\n • Vitality Checks (for protecting against poisons or other things alike this).</string>
+    <string name="Stats_Int">The ability to learn and retain knowledge. Also the magical inclination of your character. It affects the use of most magical spells.
+
+\nIntelligence modifier applies to:
+
+\n • Increasing SP by level.
+\n • Attack and damage rolls when using a magic spell.
+\n • Intelligence Checks (for sensing magic amongst other things)</string>
+    <string name="Stats_Dex">Fine motor skills, it represents the nimbleness of your character\'s fingers and hands. It affects the use of most ranged weapons and can affect finesse melee weapons.
+
+\nDexterity modifier applies to:
+
+\n • Ranged attack rolls and, if chosen to, finesse melee attack rolls.
+\n • Damage rolls when using a ranged weapon or finesse melee weapon, if you choose to.
+\n • Dexterity Checks (for lock picking or the like).</string>
+    <string name="Stats_Agi">Quickness of feet, it represents your character\'s speed, balance and reflexes. It affects your Acrobatics and Stealth rolls.
+
+\nAgility modifier applies to:
+
+\n • Dodge and Movement Speed.
+\n • Stealth rolls.
+\n • Agility Checks (for jumping over a fence or swimming down a river and other things like this).</string>
+    <string name="Stats_Wis">Wisdom describes a character’s willpower, common sense, perception and intuition. It affects the use of most survival and perception rolls.
+
+\nWisdom modifier applies to:
+
+\n • Survival rolls.
+\n • Perception rolls.
+\n • Wisdom Checks (for defending from mind attacks or understanding a situation or the like).</string>
+    <string name="Stats_Chr">Charisma describes a characters general social prowess and eloquence. It affects bluff rolls, persuasion rolls and rolls that involve social interactions.
+
+\nCharisma modifier applies to:
+
+\n • Deception rolls.
+\n • Persuasion rolls.
+\n • Charisma Checks (for being convincing or making a new friend, amongst others).</string>
+
+
 </resources>
