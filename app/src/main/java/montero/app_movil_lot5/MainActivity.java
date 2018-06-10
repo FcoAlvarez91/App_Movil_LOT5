@@ -12,14 +12,17 @@ import android.view.MenuItem;
 
 import java.lang.Character;
 
+import montero.app_movil_lot5.fragments.ProfileFragment;
 import montero.app_movil_lot5.fragments.RollingRulesFragment;
 import montero.app_movil_lot5.fragments.HomeFragment;
+import montero.app_movil_lot5.fragments.StatsRulesFragment;
 import montero.app_movil_lot5.fragments.TravelRulesFragment;
 
 public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
     public Character pc;
+    public boolean logged;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +70,12 @@ public class MainActivity extends AppCompatActivity {
                                 ft.commit();
                                 return true;
 
+                            case R.id.rules_stats:
+                                mDrawerLayout.closeDrawers();
+                                ft.replace(R.id.content_frame,new StatsRulesFragment()).addToBackStack("MainActivity");
+                                ft.commit();
+                                return true;
+
                             case R.id.nav_map:
                                 mDrawerLayout.closeDrawers();
 
@@ -74,7 +83,8 @@ public class MainActivity extends AppCompatActivity {
 
                             case R.id.nav_profile:
                                 mDrawerLayout.closeDrawers();
-
+                                ft.replace(R.id.content_frame,new ProfileFragment()).addToBackStack("MainActivity");
+                                ft.commit();
                                 return true;
                         }
 

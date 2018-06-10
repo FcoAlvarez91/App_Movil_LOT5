@@ -26,12 +26,12 @@
                     android:title="Rolling" />
                 <item
                     android:id="@+id/rules_travel"
-                    android:icon="@drawable/ic_dashboard_black_24dp"
+                    android:icon="@drawable/ic_world"
                     android:title="Travel" />
                 <item
-                    android:id="@+id/rules_character"
-                    android:icon="@drawable/ic_security_black_24dp"
-                    android:title="Character" />
+                    android:id="@+id/rules_stats"
+                    android:icon="@drawable/ic_dashboard_black_24dp"
+                    android:title="Stats" />
             </menu>
 
         </item>

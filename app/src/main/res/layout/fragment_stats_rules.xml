@@ -108,7 +108,9 @@
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Wisdom" />
+                android:text="Wisdom"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/textView15"
@@ -120,7 +122,9 @@
                 android:id="@+id/textView16"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Charisma" />
+                android:text="Charisma"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/textView17"
