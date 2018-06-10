@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import java.lang.Character;
+
 import montero.app_movil_lot5.fragments.RollingRulesFragment;
 import montero.app_movil_lot5.fragments.HomeFragment;
 import montero.app_movil_lot5.fragments.TravelRulesFragment;
@@ -17,6 +19,7 @@ import montero.app_movil_lot5.fragments.TravelRulesFragment;
 public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
+    public Character pc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
