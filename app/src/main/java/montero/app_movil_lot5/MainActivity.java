@@ -1,5 +1,7 @@
 package montero.app_movil_lot5;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
@@ -9,25 +11,33 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Spinner;
 
-import java.lang.Character;
+import com.google.gson.Gson;
 
+import java.util.ArrayList;
+
+import montero.app_movil_lot5.fragments.HomeFragment;
+import montero.app_movil_lot5.fragments.LogInFragment;
+import montero.app_movil_lot5.fragments.NewCharacterFragment;
 import montero.app_movil_lot5.fragments.ProfileFragment;
 import montero.app_movil_lot5.fragments.RollingRulesFragment;
-import montero.app_movil_lot5.fragments.HomeFragment;
 import montero.app_movil_lot5.fragments.StatsRulesFragment;
 import montero.app_movil_lot5.fragments.TravelRulesFragment;
 
 public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
-    public Character pc;
-    public boolean logged;
+    public ArrayList<Character> characters = new ArrayList<>();
+    public Profile profile = new Profile("null","null", characters);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        checkSave();
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.content_frame,new HomeFragment()).addToBackStack("MainActivity");
@@ -83,8 +93,17 @@ public class MainActivity extends AppCompatActivity {
 
                             case R.id.nav_profile:
                                 mDrawerLayout.closeDrawers();
-                                ft.replace(R.id.content_frame,new ProfileFragment()).addToBackStack("MainActivity");
-                                ft.commit();
+                                if(profile.check) {
+                                    ProfileFragment pf = new ProfileFragment();
+                                    pf.profile = profile;
+                                    ft.replace(R.id.content_frame, pf).addToBackStack("MainActivity");
+                                    ft.commit();
+                                }
+                                else{
+                                    LogInFragment lif = new LogInFragment();
+                                    ft.replace(R.id.content_frame, lif).addToBackStack("MainActivity");
+                                    ft.commit();
+                                }
                                 return true;
                         }
 
@@ -97,7 +116,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-
     }
 
     @Override
@@ -108,6 +126,90 @@ public class MainActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void clickLogIn(View view){
+        EditText username = (EditText)findViewById(R.id.username);
+        EditText password = (EditText)findViewById(R.id.password);
+        profile.username = username.getText().toString();
+        profile.password = password.getText().toString();
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ProfileFragment pf = new ProfileFragment();
+        pf.profile=profile;
+        ft.replace(R.id.content_frame, pf).addToBackStack("MainActivity");
+        ft.commit();
+
+        runSave();
+    }
+
+    public void clickSave(View view){
+        EditText name = (EditText)findViewById(R.id.new_name);
+        Spinner spinnerRace = (Spinner) findViewById(R.id.new_race);
+        Spinner spinnerArch = (Spinner) findViewById(R.id.new_arch);
+        EditText role = (EditText)findViewById(R.id.new_role);
+        String newName = name.getText().toString();
+        String newRace = spinnerRace.getSelectedItem().toString();
+        String newArch = spinnerArch.getSelectedItem().toString();
+        String newRole = role.getText().toString();
+        profile.characters.add(new Character(newName,newRace,newArch,newRole));
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ProfileFragment pf = new ProfileFragment();
+        pf.profile=profile;
+        ft.replace(R.id.content_frame, pf).addToBackStack("MainActivity");
+        ft.commit();
+
+        runSave();
+    }
+
+    public void clickNew(View view){
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        NewCharacterFragment cf = new NewCharacterFragment();
+        ft.replace(R.id.content_frame, cf).addToBackStack("MainActivity");
+        ft.commit();
+
+        runSave();
+    }
+
+    public void clickLogOut(View view){
+        SharedPreferences save = getSharedPreferences("profile", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = save.edit();
+        editor.clear();
+        editor.apply();
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.content_frame,new HomeFragment()).addToBackStack("MainActivity");
+        ft.commit();
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setCheckedItem(R.id.nav_home);
+
+        profile = new Profile("null","null", null);
+    }
+
+    public void runSave() {
+        SharedPreferences save = getSharedPreferences("profile", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = save.edit();
+        profile.check=true;
+        Gson gson = new Gson();
+        String json = gson.toJson(profile);
+        editor.putString("Profile", json);
+        editor.apply();
+    }
+
+    public boolean checkSave(){
+        SharedPreferences save = getSharedPreferences("profile", Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = save.getString("Profile", "");
+        Profile p = gson.fromJson(json, Profile.class);
+        if(p!=null) {
+            profile = p;
+            return p.check;
+        }
+        else{
+            return false;
+        }
     }
 
 }

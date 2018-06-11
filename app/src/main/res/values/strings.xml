@@ -88,5 +88,16 @@
 \n • Persuasion rolls.
 \n • Charisma Checks (for being convincing or making a new friend, amongst others).</string>
 
+    <string-array name="race">
+        <item>Dwarf</item>
+        <item>Elf</item>
+        <item>Human</item>
+    </string-array>
+
+    <string-array name="arch">
+        <item>Mage</item>
+        <item>Rogue</item>
+        <item>Warrior</item>
+    </string-array>
 
 </resources>
