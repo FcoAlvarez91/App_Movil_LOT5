@@ -48,15 +48,15 @@ public class CharacterFragment extends Fragment {
         TextView hp = getActivity().findViewById(R.id.hp);
 
         character.buildCharacter();
-        name.setText(character.name);
-        race.setText(character.race);
-        arch.setText(character.arch);
-        role.setText(character.role);
-        hp.setText(String.valueOf(character.hp));
+        name.setText(character.getName());
+        race.setText(character.getRace());
+        arch.setText(character.getArch());
+        role.setText(character.getRole());
+        hp.setText(String.valueOf(character.getHp()));
         skills.setText(Arrays.toString(character.skills));
-        String lvl = "" + character.level;
+        String lvl = "" + character.getLevel();
         level.setText(lvl);
-        String e1 = "" + character.exp;
+        String e1 = "" + character.getExp();
         exp.setText(e1);
     }
 

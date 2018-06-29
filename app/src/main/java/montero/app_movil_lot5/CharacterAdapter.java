@@ -35,20 +35,20 @@ public class CharacterAdapter extends ArrayAdapter<Character> {
         Character currentForm = CharacterList.get(position);
 
         TextView name = (TextView) listCharacter.findViewById(R.id.character_name);
-        name.setText(currentForm.name);
+        name.setText(currentForm.getName());
 
         TextView race = (TextView) listCharacter.findViewById(R.id.character_race);
-        race.setText(currentForm.race);
+        race.setText(currentForm.getRace());
 
         TextView arch = (TextView) listCharacter.findViewById(R.id.character_arch);
-        arch.setText(currentForm.arch);
+        arch.setText(currentForm.getArch());
 
-        String lvl = "" + currentForm.level;
+        String lvl = "" + currentForm.getLevel();
         TextView level = (TextView) listCharacter.findViewById(R.id.character_level);
         level.setText(lvl);
 
         TextView role = (TextView) listCharacter.findViewById(R.id.character_role);
-        role.setText(currentForm.role);
+        role.setText(currentForm.getRole());
 
         return listCharacter;
     }
