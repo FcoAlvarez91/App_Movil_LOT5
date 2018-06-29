@@ -12,6 +12,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import montero.app_movil_lot5.Models.Character;
+
 public class CharacterAdapter extends ArrayAdapter<Character> {
 
     private Context mContext;

@@ -9,15 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
-import montero.app_movil_lot5.Character;
+import montero.app_movil_lot5.Models.Character;
 import montero.app_movil_lot5.CharacterAdapter;
-import montero.app_movil_lot5.Profile;
+import montero.app_movil_lot5.Models.Profile;
 import montero.app_movil_lot5.R;
 
 /**

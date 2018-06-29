@@ -9,7 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import montero.app_movil_lot5.Character;
+import java.util.Arrays;
+
+import montero.app_movil_lot5.Models.Character;
 import montero.app_movil_lot5.R;
 
 
@@ -42,11 +44,16 @@ public class CharacterFragment extends Fragment {
         TextView role = getActivity().findViewById(R.id.role);
         TextView level = getActivity().findViewById(R.id.level);
         TextView exp = getActivity().findViewById(R.id.exp);
+        TextView skills = getActivity().findViewById(R.id.skills);
+        TextView hp = getActivity().findViewById(R.id.hp);
 
+        character.buildCharacter();
         name.setText(character.name);
         race.setText(character.race);
         arch.setText(character.arch);
         role.setText(character.role);
+        hp.setText(String.valueOf(character.hp));
+        skills.setText(Arrays.toString(character.skills));
         String lvl = "" + character.level;
         level.setText(lvl);
         String e1 = "" + character.exp;

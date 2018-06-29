@@ -19,6 +19,8 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
+import montero.app_movil_lot5.Models.Character;
+import montero.app_movil_lot5.Models.Profile;
 import montero.app_movil_lot5.fragments.HomeFragment;
 import montero.app_movil_lot5.fragments.LogInFragment;
 import montero.app_movil_lot5.fragments.NewCharacterFragment;
@@ -31,17 +33,12 @@ public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
     public ArrayList<Character> characters = new ArrayList<>();
-    public Profile profile = new Profile("null","null", characters);
+    public Profile profile = new Profile();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        checkSave();
-
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.content_frame,new HomeFragment()).addToBackStack("MainActivity");
-        ft.commit();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -50,8 +47,20 @@ public class MainActivity extends AppCompatActivity {
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
-
         NavigationView navigationView = findViewById(R.id.nav_view);
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        if(checkSave()) {
+            navigationView.setCheckedItem(R.id.nav_profile);
+            ProfileFragment pf = new ProfileFragment();
+            pf.profile = profile;
+            ft.replace(R.id.content_frame, pf).addToBackStack("MainActivity");
+            ft.commit();
+        }
+        else {
+            ft.replace(R.id.content_frame, new HomeFragment()).addToBackStack("MainActivity");
+            ft.commit();
+        }
+
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -152,7 +161,9 @@ public class MainActivity extends AppCompatActivity {
         String newRace = spinnerRace.getSelectedItem().toString();
         String newArch = spinnerArch.getSelectedItem().toString();
         String newRole = role.getText().toString();
-        profile.characters.add(new Character(newName,newRace,newArch,newRole));
+        Character ph = new Character(newName,newRace,newArch,newRole);
+        ph.buildCharacter();
+        profile.characters.add(ph);
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ProfileFragment pf = new ProfileFragment();
@@ -205,6 +216,9 @@ public class MainActivity extends AppCompatActivity {
         Profile p = gson.fromJson(json, Profile.class);
         if(p!=null) {
             profile = p;
+            if(p.characters==null){
+                profile.characters = characters;
+            }
             return p.check;
         }
         else{

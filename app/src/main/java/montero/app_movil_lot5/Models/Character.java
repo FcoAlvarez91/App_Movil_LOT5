@@ -1,4 +1,4 @@
-package montero.app_movil_lot5;
+package montero.app_movil_lot5.Models;
 
 public class Character {
 
@@ -17,7 +17,7 @@ public class Character {
     public int plat;
     public int locationX;
     public int locationY;
-    public Character(String name, String arch, String race, String role){
+    public Character(String name, String race, String arch, String role){
         this.name = name;
         this.arch = arch;
         this.race = race;
@@ -27,7 +27,7 @@ public class Character {
     }
 
     public void buildCharacter(){
-        if(arch.equals("Mage")){
+        if(arch.contains("Mage")){
             skills[0] = "Sense Magic";
             hp = 6;
             if(level>=2){
@@ -67,7 +67,7 @@ public class Character {
                 hp = hp + 6;
             }
         }
-        else if(arch.equals("Rogue")){
+        else if(arch.contains("Rogue")){
             skills[0] = "In and Out";
             hp = 7;
             if(level>=2){
@@ -107,7 +107,7 @@ public class Character {
                 hp = hp + 7;
             }
         }
-        else if(arch.equals("Warrior")){
+        else if(arch.contains("Warrior")){
             skills[0] = "Adrenaline Rush";
             hp = 8;
             if(level>=2){
