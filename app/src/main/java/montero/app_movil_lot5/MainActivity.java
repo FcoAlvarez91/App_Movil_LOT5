@@ -1,5 +1,6 @@
 package montero.app_movil_lot5;
 
+import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -18,8 +19,10 @@ import android.widget.Spinner;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import montero.app_movil_lot5.Models.Character;
+import montero.app_movil_lot5.Models.Lot5Database;
 import montero.app_movil_lot5.Models.Profile;
 import montero.app_movil_lot5.fragments.HomeFragment;
 import montero.app_movil_lot5.fragments.LogInFragment;
@@ -31,14 +34,17 @@ import montero.app_movil_lot5.fragments.TravelRulesFragment;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static Lot5Database lot5Database;
+    private static final String DATABASE_NAME = "lot5_db";
     private DrawerLayout mDrawerLayout;
-    public ArrayList<Character> characters = new ArrayList<>();
+    public List<Character> characters = new ArrayList<>();
     public Profile profile = new Profile();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        lot5Database = Room.databaseBuilder(getApplicationContext(), Lot5Database.class, DATABASE_NAME).build();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -102,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
 
                             case R.id.nav_profile:
                                 mDrawerLayout.closeDrawers();
-                                if(profile.check) {
+                                if(profile.isCheck()) {
                                     ProfileFragment pf = new ProfileFragment();
                                     pf.profile = profile;
                                     ft.replace(R.id.content_frame, pf).addToBackStack("MainActivity");
@@ -157,13 +163,21 @@ public class MainActivity extends AppCompatActivity {
         Spinner spinnerRace = (Spinner) findViewById(R.id.new_race);
         Spinner spinnerArch = (Spinner) findViewById(R.id.new_arch);
         EditText role = (EditText)findViewById(R.id.new_role);
-        String newName = name.getText().toString();
-        String newRace = spinnerRace.getSelectedItem().toString();
-        String newArch = spinnerArch.getSelectedItem().toString();
-        String newRole = role.getText().toString();
-        Character ph = new Character(newName,newRace,newArch,newRole);
-        ph.buildCharacter();
-        profile.characters.add(ph);
+        final String newName = name.getText().toString();
+        final String newRace = spinnerRace.getSelectedItem().toString();
+        final String newArch = spinnerArch.getSelectedItem().toString();
+        final String newRole = role.getText().toString();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Character ph = new Character();
+                ph.setName(newName);
+                ph.setRace(newRace);
+                ph.setArch(newArch);
+                ph.setRole(newRole);
+                lot5Database.daoCharacter().insertOnlySingleCharacter(ph);
+            }
+        }) .start();
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ProfileFragment pf = new ProfileFragment();
@@ -196,13 +210,13 @@ public class MainActivity extends AppCompatActivity {
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setCheckedItem(R.id.nav_home);
 
-        profile = new Profile("null","null", null);
+        profile = new Profile();
     }
 
     public void runSave() {
         SharedPreferences save = getSharedPreferences("profile", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = save.edit();
-        profile.check=true;
+        profile.setCheck(true);
         Gson gson = new Gson();
         String json = gson.toJson(profile);
         editor.putString("Profile", json);
@@ -216,10 +230,7 @@ public class MainActivity extends AppCompatActivity {
         Profile p = gson.fromJson(json, Profile.class);
         if(p!=null) {
             profile = p;
-            if(p.characters==null){
-                profile.characters = characters;
-            }
-            return p.check;
+            return p.isCheck();
         }
         else{
             return false;

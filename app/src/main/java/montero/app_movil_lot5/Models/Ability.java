@@ -3,15 +3,15 @@ package montero.app_movil_lot5.Models;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
-import com.sun.istack.internal.NotNull;
 
 @Entity(foreignKeys = @ForeignKey(entity = Character.class,
         parentColumns = "id",
         childColumns = "character_id"))
 public class Ability {
 
-    @NotNull
+    @NonNull
     @PrimaryKey (autoGenerate = true)
     private int id;
     private int character_id;

@@ -27,12 +27,21 @@ public class Character {
     private int plat;
     private int locationX;
     private int locationY;
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getProfile_id() {
+        return profile_id;
+    }
+
+    public void setProfile_id(int profile_id) {
+        this.profile_id = profile_id;
     }
 
     public int getLevel() {

@@ -10,25 +10,21 @@ import java.util.List;
 
 import montero.app_movil_lot5.Models.Profile;
 
-
+@Dao
 public interface DaoProfile {
 
-    @Dao
-    public interface DaoAccess {
-
-        @Insert
-        void insertOnlySingleProfile (Profile profiles);
-        @Insert
-        void insertMultipleProfiles (List<Profile> formList);
-        @Query("SELECT * FROM Profile WHERE id = :id")
-        Profile fetchOneProfilebyProfileId (int id);
-        @Update
-        void updateProfile (Profile movies);
-        @Delete
-        void deleteProfile (Profile movies);
-        @Query("DELETE FROM Profile")
-        void nukeProfiles();
-        @Query("SELECT * FROM Profile")
-        List<Profile> fetchAllProfiles();
-    }
+    @Insert
+    void insertOnlySingleProfile (Profile profiles);
+    @Insert
+    void insertMultipleProfiles (List<Profile> formList);
+    @Query("SELECT * FROM Profile WHERE id = :id")
+    Profile fetchOneProfilebyProfileId (int id);
+    @Update
+    void updateProfile (Profile movies);
+    @Delete
+    void deleteProfile (Profile movies);
+    @Query("DELETE FROM Profile")
+    void nukeProfiles();
+    @Query("SELECT * FROM Profile")
+    List<Profile> fetchAllProfiles();
 }

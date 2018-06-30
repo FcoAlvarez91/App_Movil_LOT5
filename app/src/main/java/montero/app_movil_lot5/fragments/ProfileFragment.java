@@ -12,16 +12,20 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import montero.app_movil_lot5.Models.Character;
 import montero.app_movil_lot5.CharacterAdapter;
 import montero.app_movil_lot5.Models.Profile;
 import montero.app_movil_lot5.R;
 
+import static montero.app_movil_lot5.MainActivity.lot5Database;
+
 /**
  * A simple {@link Fragment} subclass.
  */
 public class ProfileFragment extends Fragment {
-
     public Profile profile;
 
     public ProfileFragment() {
@@ -43,9 +47,12 @@ public class ProfileFragment extends Fragment {
         TextView username = (TextView)getActivity().findViewById(R.id.profile_username);
         username.setText(profile.username);
 
-        if (profile.characters!=null) {
+        List<Character> characters = new ArrayList<>();
+        characters = lot5Database.daoCharacter().fetchProfileCharacters(profile.getId());
+
+        if (characters!=null) {
             final ListView listView = (ListView) getActivity().findViewById(R.id.character_list);
-            CharacterAdapter fa = new CharacterAdapter(getContext(), profile.characters);
+            CharacterAdapter fa = new CharacterAdapter(getContext(), (ArrayList<Character>) characters);
             listView.setAdapter(fa);
 
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

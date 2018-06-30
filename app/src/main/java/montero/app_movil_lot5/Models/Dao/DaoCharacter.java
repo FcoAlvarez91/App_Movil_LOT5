@@ -10,25 +10,30 @@ import java.util.List;
 
 import montero.app_movil_lot5.Models.Character;
 
-
+@Dao
 public interface DaoCharacter {
 
-    @Dao
-    public interface DaoAccess {
+    @Insert
+    void insertOnlySingleCharacter(Character Characters);
 
-        @Insert
-        void insertOnlySingleCharacter(Character Characters);
-        @Insert
-        void insertMultipleCharacters(List<Character> formList);
-        @Query("SELECT * FROM Character WHERE id = :id")
-        Character fetchOneCharacterbyCharacterId(int id);
-        @Update
-        void updateCharacter(Character movies);
-        @Delete
-        void deleteCharacter(Character movies);
-        @Query("DELETE FROM Character")
-        void nukeCharacters();
-        @Query("SELECT * FROM Character")
-        List<Character> fetchAllCharacters();
-    }
+    @Insert
+    void insertMultipleCharacters(List<Character> formList);
+
+    @Query("SELECT * FROM Character WHERE id = :id")
+    Character fetchOneCharacterbyCharacterId(int id);
+
+    @Update
+    void updateCharacter(Character movies);
+
+    @Delete
+    void deleteCharacter(Character movies);
+
+    @Query("DELETE FROM Character")
+    void nukeCharacters();
+
+    @Query("SELECT * FROM Character")
+    List<Character> fetchAllCharacters();
+
+    @Query("SELECT * FROM Character WHERE profile_id = :profile_id")
+    List<Character> fetchProfileCharacters(int profile_id);
 }

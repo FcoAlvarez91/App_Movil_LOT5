@@ -10,25 +10,21 @@ import java.util.List;
 
 import montero.app_movil_lot5.Models.Item;
 
-
+@Dao
 public interface DaoItem {
 
-    @Dao
-    public interface DaoAccess {
-
-        @Insert
-        void insertOnlySingleItem(Item Items);
-        @Insert
-        void insertMultipleItems(List<Item> formList);
-        @Query("SELECT * FROM Item WHERE id = :id")
-        Item fetchOneItembyItemId(int id);
-        @Update
-        void updateItem(Item movies);
-        @Delete
-        void deleteItem(Item movies);
-        @Query("DELETE FROM Item")
-        void nukeItems();
-        @Query("SELECT * FROM Item")
-        List<Item> fetchAllItems();
-    }
+    @Insert
+    void insertOnlySingleItem(Item Items);
+    @Insert
+    void insertMultipleItems(List<Item> formList);
+    @Query("SELECT * FROM Item WHERE id = :id")
+    Item fetchOneItembyItemId(int id);
+    @Update
+    void updateItem(Item movies);
+    @Delete
+    void deleteItem(Item movies);
+    @Query("DELETE FROM Item")
+    void nukeItems();
+    @Query("SELECT * FROM Item")
+    List<Item> fetchAllItems();
 }
