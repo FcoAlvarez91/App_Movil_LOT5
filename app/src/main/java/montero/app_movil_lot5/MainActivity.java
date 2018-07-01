@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -73,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         // set item as selected to persist highlight
                         menuItem.setChecked(true);
-                        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                        final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
                         switch (menuItem.getItemId()) {
 
@@ -109,10 +110,21 @@ public class MainActivity extends AppCompatActivity {
                             case R.id.nav_profile:
                                 mDrawerLayout.closeDrawers();
                                 if(profile.isCheck()) {
-                                    ProfileFragment pf = new ProfileFragment();
-                                    pf.profile = profile;
-                                    ft.replace(R.id.content_frame, pf).addToBackStack("MainActivity");
-                                    ft.commit();
+                                    new Thread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            lot5Database.daoProfile().insertOnlySingleProfile(profile);
+                                            ProfileFragment pf = new ProfileFragment();
+                                            pf.profile = profile;
+                                            ft.replace(R.id.content_frame, pf).addToBackStack("MainActivity");
+                                            ft.commit();
+                                            MainActivity.this.runOnUiThread(new Runnable() {
+                                                public void run() {
+                                                    Toast.makeText(getApplicationContext(), "Profile Saved!", Toast.LENGTH_LONG).show();
+                                                }
+                                            });
+                                        }
+                                    }) .start();
                                 }
                                 else{
                                     LogInFragment lif = new LogInFragment();
@@ -144,10 +156,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void clickLogIn(View view){
-        EditText username = (EditText)findViewById(R.id.username);
-        EditText password = (EditText)findViewById(R.id.password);
-        profile.username = username.getText().toString();
-        profile.password = password.getText().toString();
+        EditText hold1 = (EditText)findViewById(R.id.username);
+        EditText hold2 = (EditText)findViewById(R.id.password);
+        final String username = hold1.getText().toString();
+        final String password = hold2.getText().toString();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                profile.setUsername(username);
+                profile.setPassword(password);
+                lot5Database.daoProfile().insertOnlySingleProfile(profile);
+                MainActivity.this.runOnUiThread(new Runnable() {
+                    public void run() {
+                        Toast.makeText(getApplicationContext(), "Profile Saved!", Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        }) .start();
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ProfileFragment pf = new ProfileFragment();
@@ -175,6 +200,7 @@ public class MainActivity extends AppCompatActivity {
                 ph.setRace(newRace);
                 ph.setArch(newArch);
                 ph.setRole(newRole);
+                ph.setProfile_id(profile.getId());
                 lot5Database.daoCharacter().insertOnlySingleCharacter(ph);
             }
         }) .start();

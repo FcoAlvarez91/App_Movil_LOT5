@@ -11,10 +11,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import montero.app_movil_lot5.MainActivity;
 import montero.app_movil_lot5.Models.Character;
 import montero.app_movil_lot5.CharacterAdapter;
 import montero.app_movil_lot5.Models.Profile;
@@ -45,33 +47,41 @@ public class ProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         TextView username = (TextView)getActivity().findViewById(R.id.profile_username);
-        username.setText(profile.username);
+        username.setText(profile.getUsername());
 
-        List<Character> characters = new ArrayList<>();
-        characters = lot5Database.daoCharacter().fetchProfileCharacters(profile.getId());
+        final ListView listView = (ListView) getActivity().findViewById(R.id.character_list);
 
-        if (characters!=null) {
-            final ListView listView = (ListView) getActivity().findViewById(R.id.character_list);
-            CharacterAdapter fa = new CharacterAdapter(getContext(), (ArrayList<Character>) characters);
-            listView.setAdapter(fa);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                final List<Character> characters = lot5Database.daoCharacter().fetchProfileCharacters(profile.getId());
+                if (characters!=null) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        public void run() {
+                            CharacterAdapter fa = new CharacterAdapter(getContext(), (ArrayList<Character>) characters);
+                            listView.setAdapter(fa);
+                            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> parent, View view, int position,
+                                                        long id) {
+                                    Character char2 = (Character) listView.getItemAtPosition(position);
+                                    CharacterFragment cf = new CharacterFragment();
+                                    cf.character = char2;
+                                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                                    ft.replace(R.id.content_frame, cf).addToBackStack("MainActivity");
+                                    ft.commit();
 
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position,
-                                        long id) {
-
-                    Character char2 = (Character) listView.getItemAtPosition(position);
-                    CharacterFragment cf = new CharacterFragment();
-                    cf.character = char2;
-                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                    ft.replace(R.id.content_frame, cf).addToBackStack("MainActivity");
-                    ft.commit();
+                                }
+                            });
+                        }
+                    });
 
                 }
-            });
-        }
-        else{
+                else{
 
-        }
+                }
+            }
+        }) .start();
+
     }
 }

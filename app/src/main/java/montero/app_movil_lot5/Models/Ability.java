@@ -6,9 +6,7 @@ import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
 
-@Entity(foreignKeys = @ForeignKey(entity = Character.class,
-        parentColumns = "id",
-        childColumns = "character_id"))
+@Entity
 public class Ability {
 
     @NonNull

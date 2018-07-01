@@ -14,8 +14,8 @@ public class Profile {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private boolean check = false;
-    public String username;
-    public String password;
+    private String username;
+    private String password;
 
     @NonNull
     public int getId() {
