@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    if(lot5Database.daoMonster().fetchAllMonsters()==null) {
+                    if(lot5Database.daoMonster().fetchAllMonsters().size()<1) {
                         Monster goblin = new Monster();
                         goblin.setName("Goblin");
                         goblin.setFamily("Humanoid");

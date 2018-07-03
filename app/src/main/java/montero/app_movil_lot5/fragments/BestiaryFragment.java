@@ -3,6 +3,7 @@ package montero.app_movil_lot5.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,12 +56,16 @@ public class BestiaryFragment extends Fragment {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position,
                                                         long id) {
-
+                                    Monster mon = (Monster) listView.getItemAtPosition(position);
+                                    MonsterFragment mf = new MonsterFragment();
+                                    mf.monster = mon;
+                                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                                    ft.replace(R.id.content_frame, mf).addToBackStack("MainActivity");
+                                    ft.commit();
                                 }
                             });
                         }
                     });
-
                 }
             }
         }) .start();

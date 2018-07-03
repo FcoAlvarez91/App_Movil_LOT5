@@ -67,14 +67,9 @@ public class ProfileFragment extends Fragment {
                             });
                         }
                     });
-
-                }
-                else{
-
                 }
             }
         }) .start();
-
     }
 
     @Override
