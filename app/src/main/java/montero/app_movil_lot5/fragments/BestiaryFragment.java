@@ -22,10 +22,10 @@ import static montero.app_movil_lot5.MainActivity.lot5Database;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MonsterFragment extends Fragment {
+public class BestiaryFragment extends Fragment {
 
     
-    public MonsterFragment() {
+    public BestiaryFragment() {
         // Required empty public constructor
     }
 

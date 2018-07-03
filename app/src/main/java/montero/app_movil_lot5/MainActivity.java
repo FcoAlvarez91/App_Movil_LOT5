@@ -4,7 +4,6 @@ import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -18,13 +17,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import montero.app_movil_lot5.Models.Character;
 import montero.app_movil_lot5.Models.Lot5Database;
@@ -32,7 +26,7 @@ import montero.app_movil_lot5.Models.Monster;
 import montero.app_movil_lot5.Models.Profile;
 import montero.app_movil_lot5.fragments.HomeFragment;
 import montero.app_movil_lot5.fragments.LogInFragment;
-import montero.app_movil_lot5.fragments.MonsterFragment;
+import montero.app_movil_lot5.fragments.BestiaryFragment;
 import montero.app_movil_lot5.fragments.NewCharacterFragment;
 import montero.app_movil_lot5.fragments.ProfileFragment;
 import montero.app_movil_lot5.fragments.RollingRulesFragment;
@@ -125,12 +119,14 @@ public class MainActivity extends AppCompatActivity {
 
                             case R.id.nav_map:
                                 mDrawerLayout.closeDrawers();
+                                ft.replace(R.id.content_frame,new MapFragment()).addToBackStack("MainActivity");
+                                ft.commit();
 
                                 return true;
 
                             case R.id.nav_monsters:
                                 mDrawerLayout.closeDrawers();
-                                ft.replace(R.id.content_frame,new MonsterFragment()).addToBackStack("MainActivity");
+                                ft.replace(R.id.content_frame,new BestiaryFragment()).addToBackStack("MainActivity");
                                 ft.commit();
                                 return true;
 
@@ -182,15 +178,10 @@ public class MainActivity extends AppCompatActivity {
                 ph.setUsername(username);
                 ph.setPassword(password);
                 lot5Database.daoProfile().insertOnlySingleProfile(ph);
-                profileID = ph.getId();
                 runSave();
                 MainActivity.this.runOnUiThread(new Runnable() {
                     public void run() {
                         Toast.makeText(getApplicationContext(), "Profile Saved!", Toast.LENGTH_LONG).show();
-                        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                        ProfileFragment pf = new ProfileFragment();
-                        ft.replace(R.id.content_frame, pf).addToBackStack("MainActivity");
-                        ft.commit();
                         runSave();
                     }
                 });
@@ -206,8 +197,7 @@ public class MainActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Profile ph = new Profile();
-                ph = lot5Database.daoProfile().fetchOneProfilebyUsername(username);
+                Profile ph = lot5Database.daoProfile().fetchOneProfilebyUsername(username);
                 if(ph!=null && ph.getPassword().equals(password)) {
                     profileID = ph.getId();
                     MainActivity.this.runOnUiThread(new Runnable() {
@@ -303,6 +293,8 @@ public class MainActivity extends AppCompatActivity {
         editor.putInt("profile", -1);
         editor.apply();
 
+        profileID = -1;
+
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.content_frame,new HomeFragment()).addToBackStack("MainActivity");
         ft.commit();
@@ -327,6 +319,7 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         else{
+            profileID = -1;
             return false;
         }
     }
