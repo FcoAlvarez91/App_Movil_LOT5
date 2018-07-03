@@ -55,20 +55,28 @@ public class MainActivity extends AppCompatActivity {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    Monster goblin = new Monster();
-                    goblin.setName("Goblin");
-                    goblin.setFamily("Humanoid");
-                    goblin.setLvl(1);
-                    goblin.setAbility("Take the Disengage Action as a Free.");
-                    Monster flame = new Monster();
-                    flame.setName("Flame");
-                    flame.setFamily("Elemental");
-                    flame.setLvl(3);
-                    flame.setAbility("Burn enemies on contact.");
-                    List<Monster> monsters = new ArrayList<>();
-                    monsters.add(goblin);
-                    monsters.add(flame);
-                    lot5Database.daoMonster().insertMultipleMonsters(monsters);
+                    if(lot5Database.daoMonster().fetchAllMonsters()==null) {
+                        Monster goblin = new Monster();
+                        goblin.setName("Goblin");
+                        goblin.setFamily("Humanoid");
+                        goblin.setLvl(1);
+                        goblin.setAbility("Take the Disengage Action as a Free.");
+                        Monster flame = new Monster();
+                        flame.setName("Flame Fiend");
+                        flame.setFamily("Elemental");
+                        flame.setLvl(5);
+                        flame.setAbility("Burn enemies on contact.");
+                        Monster centaur = new Monster();
+                        centaur.setName("Centaur");
+                        centaur.setFamily("Monstrosity");
+                        centaur.setLvl(3);
+                        centaur.setAbility("Runs at double speed.");
+                        List<Monster> monsters = new ArrayList<>();
+                        monsters.add(goblin);
+                        monsters.add(flame);
+                        monsters.add(centaur);
+                        lot5Database.daoMonster().insertMultipleMonsters(monsters);
+                    }
                 }
             }).start();
 
@@ -174,17 +182,27 @@ public class MainActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Profile ph = new Profile();
-                ph.setUsername(username);
-                ph.setPassword(password);
-                lot5Database.daoProfile().insertOnlySingleProfile(ph);
-                runSave();
-                MainActivity.this.runOnUiThread(new Runnable() {
-                    public void run() {
-                        Toast.makeText(getApplicationContext(), "Profile Saved!", Toast.LENGTH_LONG).show();
-                        runSave();
-                    }
-                });
+                if(lot5Database.daoProfile().fetchOneProfilebyUsername(username)==null) {
+                    Profile ph = new Profile();
+                    ph.setUsername(username);
+                    ph.setPassword(password);
+                    lot5Database.daoProfile().insertOnlySingleProfile(ph);
+                    runSave();
+                    MainActivity.this.runOnUiThread(new Runnable() {
+                        public void run() {
+                            Toast.makeText(getApplicationContext(), "Profile Saved! Please Log-In to Confirm", Toast.LENGTH_LONG).show();
+                            runSave();
+                        }
+                    });
+                }
+                else{
+                    MainActivity.this.runOnUiThread(new Runnable() {
+                        public void run() {
+                            Toast.makeText(getApplicationContext(), "Username Taken!", Toast.LENGTH_LONG).show();
+                            runSave();
+                        }
+                    });
+                }
             }
         }) .start();
     }
