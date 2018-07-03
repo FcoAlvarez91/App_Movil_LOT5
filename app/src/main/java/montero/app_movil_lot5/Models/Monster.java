@@ -9,7 +9,7 @@ public class Monster {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private String name;
-    private String type_creature;
+    private String family;
     private int lvl;
     private String ability;
 
@@ -30,12 +30,12 @@ public class Monster {
         this.name = name;
     }
 
-    public String getType_creature() {
-        return type_creature;
+    public String getFamily() {
+        return family;
     }
 
-    public void setType_creature(String type_creature) {
-        this.type_creature = type_creature;
+    public void setFamily(String type_creature) {
+        this.family = type_creature;
     }
 
     public int getLvl() {

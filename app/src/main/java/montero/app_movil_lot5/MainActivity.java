@@ -4,6 +4,7 @@ import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -20,13 +21,18 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import montero.app_movil_lot5.Models.Character;
 import montero.app_movil_lot5.Models.Lot5Database;
+import montero.app_movil_lot5.Models.Monster;
 import montero.app_movil_lot5.Models.Profile;
 import montero.app_movil_lot5.fragments.HomeFragment;
 import montero.app_movil_lot5.fragments.LogInFragment;
+import montero.app_movil_lot5.fragments.MonsterFragment;
 import montero.app_movil_lot5.fragments.NewCharacterFragment;
 import montero.app_movil_lot5.fragments.ProfileFragment;
 import montero.app_movil_lot5.fragments.RollingRulesFragment;
@@ -46,6 +52,26 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         lot5Database = Room.databaseBuilder(getApplicationContext(), Lot5Database.class, DATABASE_NAME).build();
         checkSave();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Monster goblin = new Monster();
+                goblin.setName("Goblin");
+                goblin.setFamily("Humanoid");
+                goblin.setLvl(1);
+                goblin.setAbility("Take the Disengage Action as a Free.");
+                Monster flame = new Monster();
+                flame.setName("Flame");
+                flame.setFamily("Elemental");
+                flame.setLvl(3);
+                flame.setAbility("Burn enemies on contact.");
+                List<Monster> monsters = new ArrayList<>();
+                monsters.add(goblin);
+                monsters.add(flame);
+                lot5Database.daoMonster().insertMultipleMonsters(monsters);
+            }
+        }) .start();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -95,6 +121,12 @@ public class MainActivity extends AppCompatActivity {
                             case R.id.nav_map:
                                 mDrawerLayout.closeDrawers();
 
+                                return true;
+
+                            case R.id.nav_monsters:
+                                mDrawerLayout.closeDrawers();
+                                ft.replace(R.id.content_frame,new MonsterFragment()).addToBackStack("MainActivity");
+                                ft.commit();
                                 return true;
 
                             case R.id.nav_profile:

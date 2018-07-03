@@ -1,25 +1,33 @@
 package montero.app_movil_lot5.fragments;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import montero.app_movil_lot5.MonsterAdapter;
+import montero.app_movil_lot5.Models.Monster;
+import montero.app_movil_lot5.Models.Monster;
 import montero.app_movil_lot5.R;
+
+import static montero.app_movil_lot5.MainActivity.lot5Database;
+import static montero.app_movil_lot5.MainActivity.profile;
+
 
 /**
  * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link MonsterFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link MonsterFragment#newInstance} factory method to
- * create an instance of this fragment.
  */
 public class MonsterFragment extends Fragment {
 
+    
     public MonsterFragment() {
         // Required empty public constructor
     }
@@ -31,5 +39,33 @@ public class MonsterFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_monster, container, false);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        
+        final ListView listView = (ListView) getActivity().findViewById(R.id.monster_list);
+        
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                final List<Monster> monsters = lot5Database.daoMonster().fetchAllMonsters();
+                if (monsters!=null) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        public void run() {
+                            MonsterAdapter fa = new MonsterAdapter(getContext(), (ArrayList<Monster>) monsters);
+                            listView.setAdapter(fa);
+                            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> parent, View view, int position,
+                                                        long id) {
+
+                                }
+                            });
+                        }
+                    });
+
+                }
+            }
+        }) .start();
+    }
 }

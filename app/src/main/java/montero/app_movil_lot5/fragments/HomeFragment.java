@@ -1,6 +1,5 @@
 package montero.app_movil_lot5.fragments;
 
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;

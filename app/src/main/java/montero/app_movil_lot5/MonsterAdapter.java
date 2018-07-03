@@ -37,8 +37,8 @@ public class MonsterAdapter extends ArrayAdapter<Monster> {
         TextView name = (TextView) listMonster.findViewById(R.id.monster_name);
         name.setText(currentForm.getName());
 
-        TextView type_creature = (TextView) listMonster.findViewById(R.id.monster_type_creature);
-        type_creature.setText(currentForm.getType_creature());
+        TextView family = (TextView) listMonster.findViewById(R.id.monster_family);
+        family.setText(currentForm.getFamily());
 
         String lvl = "" + currentForm.getLvl();
         TextView level = (TextView) listMonster.findViewById(R.id.monster_lvl);
