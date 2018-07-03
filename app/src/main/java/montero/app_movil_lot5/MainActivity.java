@@ -46,18 +46,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         lot5Database = Room.databaseBuilder(getApplicationContext(), Lot5Database.class, DATABASE_NAME).build();
-        final String username = "null";
-        final String password = "null";
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Profile ph = new Profile();
-                ph.setUsername(username);
-                ph.setPassword(password);
-                ph.setId(0);
-                lot5Database.daoProfile().insertOnlySingleProfile(ph);
-            }
-        }) .start();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -305,7 +293,7 @@ public class MainActivity extends AppCompatActivity {
     public void clickLogOut(View view){
         SharedPreferences save = getSharedPreferences("profile", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = save.edit();
-        editor.clear();
+        editor.putInt("profile", -1);
         editor.apply();
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -314,26 +302,19 @@ public class MainActivity extends AppCompatActivity {
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setCheckedItem(R.id.nav_home);
-
-        profile_id = 0;
     }
 
     public void runSave() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                SharedPreferences save = getSharedPreferences("profile", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = save.edit();
-                editor.putInt("Profile", profile_id);
-                editor.apply();
-            }
-        }) .start();
+        SharedPreferences save = getSharedPreferences("profile", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = save.edit();
+        editor.putInt("profile", profile_id);
+        editor.apply();
     }
 
     public boolean checkSave(){
         SharedPreferences save = getSharedPreferences("profile", Context.MODE_PRIVATE);
-        int id = save.getInt("Profile",0);
-        if(id!=0) {
+        int id = save.getInt("profile",0);
+        if(id>=0) {
             profile_id = id;
             return true;
         }
