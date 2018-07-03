@@ -44,35 +44,43 @@ public class MainActivity extends AppCompatActivity {
     public static Lot5Database lot5Database;
     private static final String DATABASE_NAME = "lot5_db";
     private DrawerLayout mDrawerLayout;
-    public static Profile profile;
+    public static int profileID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         lot5Database = Room.databaseBuilder(getApplicationContext(), Lot5Database.class, DATABASE_NAME).build();
-        checkSave();
+        if(checkSave()){
+            ProfileFragment pf = new ProfileFragment();
+            ft.replace(R.id.content_frame, pf).addToBackStack("MainActivity");
+            ft.commit();
+        }
+        else {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    Monster goblin = new Monster();
+                    goblin.setName("Goblin");
+                    goblin.setFamily("Humanoid");
+                    goblin.setLvl(1);
+                    goblin.setAbility("Take the Disengage Action as a Free.");
+                    Monster flame = new Monster();
+                    flame.setName("Flame");
+                    flame.setFamily("Elemental");
+                    flame.setLvl(3);
+                    flame.setAbility("Burn enemies on contact.");
+                    List<Monster> monsters = new ArrayList<>();
+                    monsters.add(goblin);
+                    monsters.add(flame);
+                    lot5Database.daoMonster().insertMultipleMonsters(monsters);
+                }
+            }).start();
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Monster goblin = new Monster();
-                goblin.setName("Goblin");
-                goblin.setFamily("Humanoid");
-                goblin.setLvl(1);
-                goblin.setAbility("Take the Disengage Action as a Free.");
-                Monster flame = new Monster();
-                flame.setName("Flame");
-                flame.setFamily("Elemental");
-                flame.setLvl(3);
-                flame.setAbility("Burn enemies on contact.");
-                List<Monster> monsters = new ArrayList<>();
-                monsters.add(goblin);
-                monsters.add(flame);
-                lot5Database.daoMonster().insertMultipleMonsters(monsters);
-            }
-        }) .start();
-
+            ft.replace(R.id.content_frame, new HomeFragment()).addToBackStack("MainActivity");
+            ft.commit();
+        }
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
@@ -81,9 +89,6 @@ public class MainActivity extends AppCompatActivity {
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.content_frame, new HomeFragment()).addToBackStack("MainActivity");
-        ft.commit();
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -177,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
                 ph.setUsername(username);
                 ph.setPassword(password);
                 lot5Database.daoProfile().insertOnlySingleProfile(ph);
-                profile = ph;
+                profileID = ph.getId();
                 runSave();
                 MainActivity.this.runOnUiThread(new Runnable() {
                     public void run() {
@@ -204,7 +209,7 @@ public class MainActivity extends AppCompatActivity {
                 Profile ph = new Profile();
                 ph = lot5Database.daoProfile().fetchOneProfilebyUsername(username);
                 if(ph!=null && ph.getPassword().equals(password)) {
-                    profile = ph;
+                    profileID = ph.getId();
                     MainActivity.this.runOnUiThread(new Runnable() {
                         public void run() {
                             Toast.makeText(getApplicationContext(), "Profile Loaded!", Toast.LENGTH_LONG).show();
@@ -267,7 +272,7 @@ public class MainActivity extends AppCompatActivity {
                 else if(newStat==6){
                     ph.setCha(1);
                 }
-                ph.setProfile_id(profile.getId());
+                ph.setProfile_id(profileID);
                 lot5Database.daoCharacter().insertOnlySingleCharacter(ph);
                 MainActivity.this.runOnUiThread(new Runnable() {
                     public void run() {
@@ -309,7 +314,7 @@ public class MainActivity extends AppCompatActivity {
     public void runSave() {
         SharedPreferences save = getSharedPreferences("profile", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = save.edit();
-        editor.putInt("profile", profile.getId());
+        editor.putInt("profile", profileID);
         editor.apply();
     }
 
@@ -317,17 +322,8 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences save = getSharedPreferences("profile", Context.MODE_PRIVATE);
         final int id = save.getInt("profile",-1);
         if(id>=0) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    profile = lot5Database.daoProfile().fetchOneProfilebyId(id);
-                    MainActivity.this.runOnUiThread(new Runnable() {
-                        public void run() {
-                            Toast.makeText(getApplicationContext(), "Profile Loaded!", Toast.LENGTH_LONG).show();
-                        }
-                    });
-                }
-            }) .start();
+            profileID = id;
+            Toast.makeText(getApplicationContext(), "Profile Loaded!", Toast.LENGTH_LONG).show();
             return true;
         }
         else{

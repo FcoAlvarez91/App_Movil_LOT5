@@ -10,18 +10,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import montero.app_movil_lot5.Models.Character;
 import montero.app_movil_lot5.CharacterAdapter;
-import montero.app_movil_lot5.Models.Profile;
 import montero.app_movil_lot5.R;
 
 import static montero.app_movil_lot5.MainActivity.lot5Database;
-import static montero.app_movil_lot5.MainActivity.profile;
+import static montero.app_movil_lot5.MainActivity.profileID;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -44,13 +42,11 @@ public class ProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         final ListView listView = (ListView) getActivity().findViewById(R.id.character_list);
-        TextView username = (TextView)getActivity().findViewById(R.id.profile_username);
-        username.setText(profile.getUsername());
 
         new Thread(new Runnable() {
             @Override
             public void run() {
-                final List<Character> characters = lot5Database.daoCharacter().fetchProfileCharacters(profile.getId());
+                final List<Character> characters = lot5Database.daoCharacter().fetchProfileCharacters(profileID);
                 if (characters!=null) {
                     getActivity().runOnUiThread(new Runnable() {
                         public void run() {
@@ -79,5 +75,13 @@ public class ProfileFragment extends Fragment {
             }
         }) .start();
 
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        ListView listView = (ListView) getActivity().findViewById(R.id.character_list);
+        listView.setAdapter(null);
     }
 }
