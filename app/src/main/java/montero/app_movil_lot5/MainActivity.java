@@ -39,13 +39,25 @@ public class MainActivity extends AppCompatActivity {
     private static final String DATABASE_NAME = "lot5_db";
     private DrawerLayout mDrawerLayout;
     public List<Character> characters = new ArrayList<>();
-    public Profile profile = new Profile();
+    public int profile_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         lot5Database = Room.databaseBuilder(getApplicationContext(), Lot5Database.class, DATABASE_NAME).build();
+        final String username = "null";
+        final String password = "null";
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Profile ph = new Profile();
+                ph.setUsername(username);
+                ph.setPassword(password);
+                ph.setId(0);
+                lot5Database.daoProfile().insertOnlySingleProfile(ph);
+            }
+        }) .start();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -58,10 +70,25 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         if(checkSave()) {
             navigationView.setCheckedItem(R.id.nav_profile);
-            ProfileFragment pf = new ProfileFragment();
-            pf.profile = profile;
-            ft.replace(R.id.content_frame, pf).addToBackStack("MainActivity");
-            ft.commit();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    Profile ph = new Profile();
+                    ph = lot5Database.daoProfile().fetchOneProfilebyProfileId(profile_id);
+                    MainActivity.this.runOnUiThread(new Runnable() {
+                        public void run() {
+                            Toast.makeText(getApplicationContext(), "Profile Loaded!", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                    ProfileFragment pf = new ProfileFragment();
+                    pf.profile=ph;
+                    ft.replace(R.id.content_frame, pf).addToBackStack("MainActivity");
+                    ft.commit();
+
+                    runSave();
+                }
+            }) .start();
         }
         else {
             ft.replace(R.id.content_frame, new HomeFragment()).addToBackStack("MainActivity");
@@ -109,22 +136,8 @@ public class MainActivity extends AppCompatActivity {
 
                             case R.id.nav_profile:
                                 mDrawerLayout.closeDrawers();
-                                if(profile.isCheck()) {
-                                    new Thread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            lot5Database.daoProfile().insertOnlySingleProfile(profile);
-                                            ProfileFragment pf = new ProfileFragment();
-                                            pf.profile = profile;
-                                            ft.replace(R.id.content_frame, pf).addToBackStack("MainActivity");
-                                            ft.commit();
-                                            MainActivity.this.runOnUiThread(new Runnable() {
-                                                public void run() {
-                                                    Toast.makeText(getApplicationContext(), "Profile Saved!", Toast.LENGTH_LONG).show();
-                                                }
-                                            });
-                                        }
-                                    }) .start();
+                                if(checkSave()) {
+
                                 }
                                 else{
                                     LogInFragment lif = new LogInFragment();
@@ -155,6 +168,36 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void clickSignUp(View view){
+        EditText hold1 = (EditText)findViewById(R.id.username);
+        EditText hold2 = (EditText)findViewById(R.id.password);
+        final String username = hold1.getText().toString();
+        final String password = hold2.getText().toString();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Profile ph = new Profile();
+                ph.setUsername(username);
+                ph.setPassword(password);
+                lot5Database.daoProfile().insertOnlySingleProfile(ph);
+                MainActivity.this.runOnUiThread(new Runnable() {
+                    public void run() {
+                        Toast.makeText(getApplicationContext(), "Profile Saved!", Toast.LENGTH_LONG).show();
+
+                    }
+                });
+                profile_id = ph.getId();
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                ProfileFragment pf = new ProfileFragment();
+                pf.profile=ph;
+                ft.replace(R.id.content_frame, pf).addToBackStack("MainActivity");
+                ft.commit();
+
+                runSave();
+            }
+        }) .start();
+    }
+
     public void clickLogIn(View view){
         EditText hold1 = (EditText)findViewById(R.id.username);
         EditText hold2 = (EditText)findViewById(R.id.password);
@@ -163,58 +206,94 @@ public class MainActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                profile.setUsername(username);
-                profile.setPassword(password);
-                lot5Database.daoProfile().insertOnlySingleProfile(profile);
-                MainActivity.this.runOnUiThread(new Runnable() {
-                    public void run() {
-                        Toast.makeText(getApplicationContext(), "Profile Saved!", Toast.LENGTH_LONG).show();
-                    }
-                });
+                Profile ph = new Profile();
+                ph = lot5Database.daoProfile().fetchOneProfilebyUsername(username);
+                if(ph!=null && ph.getPassword().equals(password)) {
+                    profile_id = ph.getId();
+                    MainActivity.this.runOnUiThread(new Runnable() {
+                        public void run() {
+                            Toast.makeText(getApplicationContext(), "Profile Loaded!", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                    ProfileFragment pf = new ProfileFragment();
+                    pf.profile=ph;
+                    ft.replace(R.id.content_frame, pf).addToBackStack("MainActivity");
+                    ft.commit();
+
+                    runSave();
+                }
+                else{
+                    MainActivity.this.runOnUiThread(new Runnable() {
+                        public void run() {
+                            Toast.makeText(getApplicationContext(), "Invalid Credentials!", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }
             }
         }) .start();
-
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ProfileFragment pf = new ProfileFragment();
-        pf.profile=profile;
-        ft.replace(R.id.content_frame, pf).addToBackStack("MainActivity");
-        ft.commit();
-
-        runSave();
     }
 
-    public void clickSave(View view){
+    public void clickSaveCharacter(View view){
         EditText name = (EditText)findViewById(R.id.new_name);
         Spinner spinnerRace = (Spinner) findViewById(R.id.new_race);
         Spinner spinnerArch = (Spinner) findViewById(R.id.new_arch);
+        Spinner spinnerStat = (Spinner) findViewById(R.id.new_stat);
         EditText role = (EditText)findViewById(R.id.new_role);
         final String newName = name.getText().toString();
         final String newRace = spinnerRace.getSelectedItem().toString();
         final String newArch = spinnerArch.getSelectedItem().toString();
+        final int newStat = spinnerStat.getSelectedItemPosition();
         final String newRole = role.getText().toString();
         new Thread(new Runnable() {
             @Override
             public void run() {
                 Character ph = new Character();
+                Profile ph2 = lot5Database.daoProfile().fetchOneProfilebyProfileId(profile_id);
                 ph.setName(newName);
                 ph.setRace(newRace);
                 ph.setArch(newArch);
                 ph.setRole(newRole);
-                ph.setProfile_id(profile.getId());
+                if(newStat==0){
+                    ph.setStr(1);
+                }
+                else if(newStat==1){
+                    ph.setVit(1);
+                }
+                else if(newStat==2){
+                    ph.setSma(1);
+                }
+                else if(newStat==3){
+                    ph.setDex(1);
+                }
+                else if(newStat==4){
+                    ph.setAgi(1);
+                }
+                else if(newStat==5){
+                    ph.setWis(1);
+                }
+                else if(newStat==6){
+                    ph.setCha(1);
+                }
+                ph.setProfile_id(profile_id);
                 lot5Database.daoCharacter().insertOnlySingleCharacter(ph);
+                MainActivity.this.runOnUiThread(new Runnable() {
+                    public void run() {
+                        Toast.makeText(getApplicationContext(), "Character Created!", Toast.LENGTH_LONG).show();
+                    }
+                });
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                ProfileFragment pf = new ProfileFragment();
+                pf.profile=ph2;
+                ft.replace(R.id.content_frame, pf).addToBackStack("MainActivity");
+                ft.commit();
+
+                runSave();
             }
         }) .start();
-
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ProfileFragment pf = new ProfileFragment();
-        pf.profile=profile;
-        ft.replace(R.id.content_frame, pf).addToBackStack("MainActivity");
-        ft.commit();
-
-        runSave();
     }
 
-    public void clickNew(View view){
+    public void clickNewCharacter(View view){
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         NewCharacterFragment cf = new NewCharacterFragment();
         ft.replace(R.id.content_frame, cf).addToBackStack("MainActivity");
@@ -236,27 +315,27 @@ public class MainActivity extends AppCompatActivity {
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setCheckedItem(R.id.nav_home);
 
-        profile = new Profile();
+        profile_id = 0;
     }
 
     public void runSave() {
-        SharedPreferences save = getSharedPreferences("profile", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = save.edit();
-        profile.setCheck(true);
-        Gson gson = new Gson();
-        String json = gson.toJson(profile);
-        editor.putString("Profile", json);
-        editor.apply();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                SharedPreferences save = getSharedPreferences("profile", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = save.edit();
+                editor.putInt("Profile", profile_id);
+                editor.apply();
+            }
+        }) .start();
     }
 
     public boolean checkSave(){
         SharedPreferences save = getSharedPreferences("profile", Context.MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = save.getString("Profile", "");
-        Profile p = gson.fromJson(json, Profile.class);
-        if(p!=null) {
-            profile = p;
-            return p.isCheck();
+        int id = save.getInt("Profile",0);
+        if(id!=0) {
+            profile_id = id;
+            return true;
         }
         else{
             return false;

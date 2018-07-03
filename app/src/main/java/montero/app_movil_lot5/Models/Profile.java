@@ -13,21 +13,12 @@ public class Profile {
     @NonNull
     @PrimaryKey(autoGenerate = true)
     private int id;
-    private boolean check = false;
     private String username;
     private String password;
 
     @NonNull
     public int getId() {
         return id;
-    }
-
-    public boolean isCheck() {
-        return check;
-    }
-
-    public void setCheck(boolean check) {
-        this.check = check;
     }
 
     public void setId(@NonNull int id) {

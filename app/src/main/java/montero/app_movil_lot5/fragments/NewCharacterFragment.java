@@ -44,6 +44,10 @@ public class NewCharacterFragment extends Fragment {
         ArrayAdapter<String> spinnerArchArrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.arch));
         spinnerArch.setAdapter(spinnerArchArrayAdapter);
 
+        Spinner spinnerStat = (Spinner)getActivity().findViewById(R.id.new_stat);
+        ArrayAdapter<String> spinnerStatArrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.stats));
+        spinnerStat.setAdapter(spinnerStatArrayAdapter);
+
 
     }
 }

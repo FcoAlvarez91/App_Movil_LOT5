@@ -100,4 +100,14 @@
         <item>Warrior</item>
     </string-array>
 
+    <string-array name="stats">
+        <item>Str</item>
+        <item>Vit</item>
+        <item>Int</item>
+        <item>Dex</item>
+        <item>Agi</item>
+        <item>Wis</item>
+        <item>Cha</item>
+    </string-array>
+
 </resources>

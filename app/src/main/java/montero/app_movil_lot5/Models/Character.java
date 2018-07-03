@@ -25,6 +25,13 @@ public class Character {
     private int plat;
     private int locationX;
     private int locationY;
+    private int str;
+    private int vit;
+    private int sma;
+    private int dex;
+    private int agi;
+    private int wis;
+    private int cha;
 
     public String getName() {
         return name;
@@ -145,5 +152,61 @@ public class Character {
 
     public void setId(@NonNull int id) {
         this.id = id;
+    }
+
+    public int getStr() {
+        return str;
+    }
+
+    public void setStr(int str) {
+        this.str = str;
+    }
+
+    public int getVit() {
+        return vit;
+    }
+
+    public void setVit(int vit) {
+        this.vit = vit;
+    }
+
+    public int getSma() {
+        return sma;
+    }
+
+    public void setSma(int sma) {
+        this.sma = sma;
+    }
+
+    public int getDex() {
+        return dex;
+    }
+
+    public void setDex(int dex) {
+        this.dex = dex;
+    }
+
+    public int getAgi() {
+        return agi;
+    }
+
+    public void setAgi(int agi) {
+        this.agi = agi;
+    }
+
+    public int getWis() {
+        return wis;
+    }
+
+    public void setWis(int wis) {
+        this.wis = wis;
+    }
+
+    public int getCha() {
+        return cha;
+    }
+
+    public void setCha(int cha) {
+        this.cha = cha;
     }
 }

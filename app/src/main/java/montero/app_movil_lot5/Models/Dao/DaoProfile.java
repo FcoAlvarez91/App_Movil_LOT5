@@ -19,6 +19,8 @@ public interface DaoProfile {
     void insertMultipleProfiles (List<Profile> formList);
     @Query("SELECT * FROM Profile WHERE id = :id")
     Profile fetchOneProfilebyProfileId (int id);
+    @Query("SELECT * FROM Profile WHERE username = :username")
+    Profile fetchOneProfilebyUsername (String username);
     @Update
     void updateProfile (Profile movies);
     @Delete

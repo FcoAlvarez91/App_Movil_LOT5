@@ -109,27 +109,6 @@
         app:layout_constraintTop_toTopOf="@+id/role" />
 
     <TextView
-        android:id="@+id/textView37"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:text="Skills:"
-        android:textAppearance="@style/TextAppearance.AppCompat.Menu"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/role" />
-
-    <TextView
-        android:id="@+id/skills"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="skills"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView37" />
-
-    <TextView
         android:id="@+id/textView24"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -145,4 +124,29 @@
         android:text="hp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView24" />
+
+    <TextView
+        android:id="@+id/stat_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="stat"
+        app:layout_constraintTop_toBottomOf="@+id/role"
+        tools:layout_editor_absoluteX="8dp" />
+
+    <TextView
+        android:id="@+id/textView30"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=": "
+        app:layout_constraintStart_toEndOf="@+id/stat_name"
+        app:layout_constraintTop_toTopOf="@+id/stat_name" />
+
+    <TextView
+        android:id="@+id/stat_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="statscore"
+        app:layout_constraintStart_toEndOf="@+id/textView30"
+        app:layout_constraintTop_toTopOf="@+id/stat_name" />
 </android.support.constraint.ConstraintLayout>
