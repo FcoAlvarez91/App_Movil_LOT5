@@ -11,29 +11,26 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import montero.app_movil_lot5.MainActivity;
 import montero.app_movil_lot5.Models.Character;
 import montero.app_movil_lot5.CharacterAdapter;
 import montero.app_movil_lot5.Models.Profile;
 import montero.app_movil_lot5.R;
 
 import static montero.app_movil_lot5.MainActivity.lot5Database;
+import static montero.app_movil_lot5.MainActivity.profile;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class ProfileFragment extends Fragment {
-    public Profile profile;
 
     public ProfileFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,10 +43,9 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        final ListView listView = (ListView) getActivity().findViewById(R.id.character_list);
         TextView username = (TextView)getActivity().findViewById(R.id.profile_username);
         username.setText(profile.getUsername());
-
-        final ListView listView = (ListView) getActivity().findViewById(R.id.character_list);
 
         new Thread(new Runnable() {
             @Override

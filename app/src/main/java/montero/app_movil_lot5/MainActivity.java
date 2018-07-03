@@ -38,14 +38,14 @@ public class MainActivity extends AppCompatActivity {
     public static Lot5Database lot5Database;
     private static final String DATABASE_NAME = "lot5_db";
     private DrawerLayout mDrawerLayout;
-    public List<Character> characters = new ArrayList<>();
-    public int profile_id;
+    public static Profile profile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         lot5Database = Room.databaseBuilder(getApplicationContext(), Lot5Database.class, DATABASE_NAME).build();
+        checkSave();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -56,33 +56,8 @@ public class MainActivity extends AppCompatActivity {
         mDrawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        if(checkSave()) {
-            navigationView.setCheckedItem(R.id.nav_profile);
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    Profile ph = new Profile();
-                    ph = lot5Database.daoProfile().fetchOneProfilebyProfileId(profile_id);
-                    MainActivity.this.runOnUiThread(new Runnable() {
-                        public void run() {
-                            Toast.makeText(getApplicationContext(), "Profile Loaded!", Toast.LENGTH_LONG).show();
-                        }
-                    });
-                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                    ProfileFragment pf = new ProfileFragment();
-                    pf.profile=ph;
-                    ft.replace(R.id.content_frame, pf).addToBackStack("MainActivity");
-                    ft.commit();
-
-                    runSave();
-                }
-            }) .start();
-        }
-        else {
-            ft.replace(R.id.content_frame, new HomeFragment()).addToBackStack("MainActivity");
-            ft.commit();
-        }
-
+        ft.replace(R.id.content_frame, new HomeFragment()).addToBackStack("MainActivity");
+        ft.commit();
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -125,7 +100,9 @@ public class MainActivity extends AppCompatActivity {
                             case R.id.nav_profile:
                                 mDrawerLayout.closeDrawers();
                                 if(checkSave()) {
-
+                                    ProfileFragment pf = new ProfileFragment();
+                                    ft.replace(R.id.content_frame, pf).addToBackStack("MainActivity");
+                                    ft.commit();
                                 }
                                 else{
                                     LogInFragment lif = new LogInFragment();
@@ -168,20 +145,18 @@ public class MainActivity extends AppCompatActivity {
                 ph.setUsername(username);
                 ph.setPassword(password);
                 lot5Database.daoProfile().insertOnlySingleProfile(ph);
+                profile = ph;
+                runSave();
                 MainActivity.this.runOnUiThread(new Runnable() {
                     public void run() {
                         Toast.makeText(getApplicationContext(), "Profile Saved!", Toast.LENGTH_LONG).show();
-
+                        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                        ProfileFragment pf = new ProfileFragment();
+                        ft.replace(R.id.content_frame, pf).addToBackStack("MainActivity");
+                        ft.commit();
+                        runSave();
                     }
                 });
-                profile_id = ph.getId();
-                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                ProfileFragment pf = new ProfileFragment();
-                pf.profile=ph;
-                ft.replace(R.id.content_frame, pf).addToBackStack("MainActivity");
-                ft.commit();
-
-                runSave();
             }
         }) .start();
     }
@@ -197,19 +172,17 @@ public class MainActivity extends AppCompatActivity {
                 Profile ph = new Profile();
                 ph = lot5Database.daoProfile().fetchOneProfilebyUsername(username);
                 if(ph!=null && ph.getPassword().equals(password)) {
-                    profile_id = ph.getId();
+                    profile = ph;
                     MainActivity.this.runOnUiThread(new Runnable() {
                         public void run() {
                             Toast.makeText(getApplicationContext(), "Profile Loaded!", Toast.LENGTH_LONG).show();
+                            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                            ProfileFragment pf = new ProfileFragment();
+                            ft.replace(R.id.content_frame, pf).addToBackStack("MainActivity");
+                            ft.commit();
+                            runSave();
                         }
                     });
-                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                    ProfileFragment pf = new ProfileFragment();
-                    pf.profile=ph;
-                    ft.replace(R.id.content_frame, pf).addToBackStack("MainActivity");
-                    ft.commit();
-
-                    runSave();
                 }
                 else{
                     MainActivity.this.runOnUiThread(new Runnable() {
@@ -237,7 +210,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Character ph = new Character();
-                Profile ph2 = lot5Database.daoProfile().fetchOneProfilebyProfileId(profile_id);
                 ph.setName(newName);
                 ph.setRace(newRace);
                 ph.setArch(newArch);
@@ -263,20 +235,19 @@ public class MainActivity extends AppCompatActivity {
                 else if(newStat==6){
                     ph.setCha(1);
                 }
-                ph.setProfile_id(profile_id);
+                ph.setProfile_id(profile.getId());
                 lot5Database.daoCharacter().insertOnlySingleCharacter(ph);
                 MainActivity.this.runOnUiThread(new Runnable() {
                     public void run() {
                         Toast.makeText(getApplicationContext(), "Character Created!", Toast.LENGTH_LONG).show();
+                        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                        ProfileFragment pf = new ProfileFragment();
+                        ft.replace(R.id.content_frame, pf).addToBackStack("MainActivity");
+                        ft.commit();
+                        runSave();
                     }
                 });
-                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                ProfileFragment pf = new ProfileFragment();
-                pf.profile=ph2;
-                ft.replace(R.id.content_frame, pf).addToBackStack("MainActivity");
-                ft.commit();
 
-                runSave();
             }
         }) .start();
     }
@@ -286,7 +257,6 @@ public class MainActivity extends AppCompatActivity {
         NewCharacterFragment cf = new NewCharacterFragment();
         ft.replace(R.id.content_frame, cf).addToBackStack("MainActivity");
         ft.commit();
-
         runSave();
     }
 
@@ -307,15 +277,25 @@ public class MainActivity extends AppCompatActivity {
     public void runSave() {
         SharedPreferences save = getSharedPreferences("profile", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = save.edit();
-        editor.putInt("profile", profile_id);
+        editor.putInt("profile", profile.getId());
         editor.apply();
     }
 
     public boolean checkSave(){
         SharedPreferences save = getSharedPreferences("profile", Context.MODE_PRIVATE);
-        int id = save.getInt("profile",0);
+        final int id = save.getInt("profile",-1);
         if(id>=0) {
-            profile_id = id;
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    profile = lot5Database.daoProfile().fetchOneProfilebyId(id);
+                    MainActivity.this.runOnUiThread(new Runnable() {
+                        public void run() {
+                            Toast.makeText(getApplicationContext(), "Profile Loaded!", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }
+            }) .start();
             return true;
         }
         else{
