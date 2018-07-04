@@ -1,4 +1,4 @@
-package montero.app_movil_lot5;
+package montero.app_movil_lot5.Adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import montero.app_movil_lot5.Models.Character;
+import montero.app_movil_lot5.R;
 
 public class CharacterAdapter extends ArrayAdapter<Character> {
 

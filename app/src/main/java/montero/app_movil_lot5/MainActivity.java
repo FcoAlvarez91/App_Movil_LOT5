@@ -20,18 +20,22 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import montero.app_movil_lot5.Fragments.CharacterFragment;
+import montero.app_movil_lot5.Fragments.NewAbilityFragment;
+import montero.app_movil_lot5.Models.Ability;
 import montero.app_movil_lot5.Models.Character;
 import montero.app_movil_lot5.Models.Lot5Database;
 import montero.app_movil_lot5.Models.Monster;
 import montero.app_movil_lot5.Models.Profile;
-import montero.app_movil_lot5.fragments.HomeFragment;
-import montero.app_movil_lot5.fragments.LogInFragment;
-import montero.app_movil_lot5.fragments.BestiaryFragment;
-import montero.app_movil_lot5.fragments.NewCharacterFragment;
-import montero.app_movil_lot5.fragments.ProfileFragment;
-import montero.app_movil_lot5.fragments.RollingRulesFragment;
-import montero.app_movil_lot5.fragments.StatsRulesFragment;
-import montero.app_movil_lot5.fragments.TravelRulesFragment;
+import montero.app_movil_lot5.Fragments.HomeFragment;
+import montero.app_movil_lot5.Fragments.LogInFragment;
+import montero.app_movil_lot5.Fragments.BestiaryFragment;
+import montero.app_movil_lot5.Fragments.MapFragment;
+import montero.app_movil_lot5.Fragments.NewCharacterFragment;
+import montero.app_movil_lot5.Fragments.ProfileFragment;
+import montero.app_movil_lot5.Fragments.RollingRulesFragment;
+import montero.app_movil_lot5.Fragments.StatsRulesFragment;
+import montero.app_movil_lot5.Fragments.TravelRulesFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String DATABASE_NAME = "lot5_db";
     private DrawerLayout mDrawerLayout;
     public static int profileID;
+    public static int characterID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -297,10 +302,53 @@ public class MainActivity extends AppCompatActivity {
         }) .start();
     }
 
+    public void clickSaveAbility(View view){
+        EditText name = (EditText)findViewById(R.id.ab_make_name);
+        EditText range = (EditText)findViewById(R.id.ab_make_range);
+        EditText effect = (EditText)findViewById(R.id.ab_make_effect);
+        EditText flair = (EditText)findViewById(R.id.ab_make_flair);
+        final String newName = name.getText().toString();
+        final String newRange = range.getText().toString();
+        final String newEffect = effect.getText().toString();
+        final String newFlair = flair.getText().toString();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Ability ph = new Ability();
+                ph.setName(newName);
+                ph.setRange(newRange);
+                ph.setEffect(newEffect);
+                ph.setFlair(newFlair);
+                ph.setCharacter_id(characterID);
+                lot5Database.daoAbility().insertOnlySingleAbility(ph);
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                CharacterFragment cf = new CharacterFragment();
+                cf.character = lot5Database.daoCharacter().fetchOneCharacterbyCharacterId(characterID);
+                ft.replace(R.id.content_frame, cf).addToBackStack("MainActivity");
+                ft.commit();
+                runSave();
+                MainActivity.this.runOnUiThread(new Runnable() {
+                    public void run() {
+                        Toast.makeText(getApplicationContext(), "Ability Created!", Toast.LENGTH_LONG).show();
+                    }
+                });
+
+            }
+        }) .start();
+    }
+
     public void clickNewCharacter(View view){
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         NewCharacterFragment cf = new NewCharacterFragment();
         ft.replace(R.id.content_frame, cf).addToBackStack("MainActivity");
+        ft.commit();
+        runSave();
+    }
+
+    public void clickNewAbility(View view){
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        NewAbilityFragment af = new NewAbilityFragment();
+        ft.replace(R.id.content_frame, af).addToBackStack("MainActivity");
         ft.commit();
         runSave();
     }

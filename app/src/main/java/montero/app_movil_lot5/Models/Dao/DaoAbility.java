@@ -9,6 +9,7 @@ import android.arch.persistence.room.Update;
 import java.util.List;
 
 import montero.app_movil_lot5.Models.Ability;
+import montero.app_movil_lot5.Models.Character;
 
 @Dao
 public interface DaoAbility {
@@ -27,4 +28,6 @@ public interface DaoAbility {
     void nukeAbilitys();
     @Query("SELECT * FROM Ability")
     List<Ability> fetchAllAbilitys();
+    @Query("SELECT * FROM Ability WHERE character_id = :char_id")
+    List<Ability> fetchCharacterAbilities(int char_id);
 }

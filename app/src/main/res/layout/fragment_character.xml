@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.CharacterFragment">
+    tools:context=".Fragments.CharacterFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -16,6 +16,7 @@
         android:layout_marginTop="8dp"
         android:text="name"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,6 +27,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="race"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/name" />
 
@@ -35,6 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text=", "
+        android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/race"
         app:layout_constraintTop_toBottomOf="@+id/name" />
 
@@ -44,6 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="arch"
+        android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/textView25"
         app:layout_constraintTop_toBottomOf="@+id/name" />
 
@@ -53,6 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Level: "
+        android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@+id/level"
         app:layout_constraintTop_toBottomOf="@+id/name" />
 
@@ -61,6 +66,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Exp: "
+        android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@+id/exp"
         app:layout_constraintTop_toBottomOf="@+id/textView28" />
 
@@ -71,6 +77,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
         android:text="lvl"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/name" />
 
@@ -80,6 +87,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:text="exp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/level" />
 
@@ -88,6 +96,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="role"
+        android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/textView35"
         app:layout_constraintTop_toBottomOf="@+id/race" />
 
@@ -105,6 +114,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text='"'
+        android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/role"
         app:layout_constraintTop_toTopOf="@+id/role" />
 
@@ -113,6 +123,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="HP: "
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/name"
         app:layout_constraintEnd_toStartOf="@+id/hp" />
 
@@ -122,31 +133,181 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:text="hp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView24" />
 
     <TextView
-        android:id="@+id/stat_name"
+        android:id="@+id/no_no"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Str: "
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/role" />
+
+    <TextView
+        android:id="@+id/str"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="str"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/no_no"
+        app:layout_constraintTop_toTopOf="@+id/no_no" />
+
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Vit: "
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/no_no" />
+
+    <TextView
+        android:id="@+id/vit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="vit"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/textView21"
+        app:layout_constraintTop_toTopOf="@+id/textView21" />
+
+    <TextView
+        android:id="@+id/textView33"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Int: "
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView21" />
+
+    <TextView
+        android:id="@+id/sma"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="int"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/textView33"
+        app:layout_constraintTop_toTopOf="@+id/textView33" />
+
+    <TextView
+        android:id="@+id/textView37"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Dex: "
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView33" />
+
+    <TextView
+        android:id="@+id/dex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="dex"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/textView37"
+        app:layout_constraintTop_toTopOf="@+id/textView37" />
+
+    <TextView
+        android:id="@+id/textView39"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="150dp"
+        android:text="Agi: "
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/no_no" />
+
+    <TextView
+        android:id="@+id/agi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="agi"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/textView39"
+        app:layout_constraintTop_toTopOf="@+id/textView39" />
+
+    <TextView
+        android:id="@+id/textView41"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="stat"
-        app:layout_constraintTop_toBottomOf="@+id/role"
-        tools:layout_editor_absoluteX="8dp" />
+        android:text="Wis: "
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/textView39"
+        app:layout_constraintTop_toBottomOf="@+id/textView39" />
 
     <TextView
-        android:id="@+id/textView30"
+        android:id="@+id/wis"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=": "
-        app:layout_constraintStart_toEndOf="@+id/stat_name"
-        app:layout_constraintTop_toTopOf="@+id/stat_name" />
+        android:text="wis"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/textView41"
+        app:layout_constraintTop_toTopOf="@+id/textView41" />
 
     <TextView
-        android:id="@+id/stat_score"
+        android:id="@+id/textView43"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="statscore"
-        app:layout_constraintStart_toEndOf="@+id/textView30"
-        app:layout_constraintTop_toTopOf="@+id/stat_name" />
+        android:layout_marginTop="8dp"
+        android:text="Cha: "
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/textView41"
+        app:layout_constraintTop_toBottomOf="@+id/textView41" />
+
+    <TextView
+        android:id="@+id/cha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="cha"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/textView43"
+        app:layout_constraintTop_toTopOf="@+id/textView43" />
+
+    <TextView
+        android:id="@+id/textView45"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:text="Abilities: "
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView37" />
+
+    <ListView
+        android:id="@+id/ability_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView45" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:onClick="clickNewAbility"
+        android:text="Add"
+        app:layout_constraintBottom_toTopOf="@+id/ability_list"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 </android.support.constraint.ConstraintLayout>

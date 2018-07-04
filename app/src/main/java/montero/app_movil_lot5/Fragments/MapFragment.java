@@ -1,4 +1,4 @@
-package montero.app_movil_lot5.fragments;
+package montero.app_movil_lot5.Fragments;
 
 
 import android.os.Bundle;
@@ -9,13 +9,14 @@ import android.view.ViewGroup;
 
 import montero.app_movil_lot5.R;
 
+
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RollingRulesFragment extends Fragment {
+public class MapFragment extends Fragment {
 
 
-    public RollingRulesFragment() {
+    public MapFragment() {
         // Required empty public constructor
     }
 
@@ -24,7 +25,7 @@ public class RollingRulesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_rolling_rules, container, false);
+        return inflater.inflate(R.layout.fragment_map, container, false);
     }
 
 }

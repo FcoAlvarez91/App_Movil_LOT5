@@ -25,13 +25,13 @@ public class Character {
     private int plat;
     private int locationX;
     private int locationY;
-    private int str;
-    private int vit;
-    private int sma;
-    private int dex;
-    private int agi;
-    private int wis;
-    private int cha;
+    private int str = 0;
+    private int vit = 0;
+    private int sma = 0;
+    private int dex = 0;
+    private int agi = 0;
+    private int wis = 0;
+    private int cha = 0;
 
     public String getName() {
         return name;

@@ -1,4 +1,4 @@
-package montero.app_movil_lot5.fragments;
+package montero.app_movil_lot5.Fragments;
 
 
 import android.os.Bundle;

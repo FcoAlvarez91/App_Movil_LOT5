@@ -1,4 +1,4 @@
-package montero.app_movil_lot5.fragments;
+package montero.app_movil_lot5.Fragments;
 
 
 import android.os.Bundle;
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import montero.app_movil_lot5.Models.Character;
-import montero.app_movil_lot5.CharacterAdapter;
+import montero.app_movil_lot5.Adapters.CharacterAdapter;
 import montero.app_movil_lot5.R;
 
 import static montero.app_movil_lot5.MainActivity.lot5Database;
@@ -70,13 +70,5 @@ public class ProfileFragment extends Fragment {
                 }
             }
         }) .start();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        ListView listView = (ListView) getActivity().findViewById(R.id.character_list);
-        listView.setAdapter(null);
     }
 }

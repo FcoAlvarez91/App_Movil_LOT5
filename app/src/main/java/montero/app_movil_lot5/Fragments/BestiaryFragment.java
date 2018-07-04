@@ -1,4 +1,4 @@
-package montero.app_movil_lot5.fragments;
+package montero.app_movil_lot5.Fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,7 +13,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
-import montero.app_movil_lot5.MonsterAdapter;
+import montero.app_movil_lot5.Adapters.MonsterAdapter;
 import montero.app_movil_lot5.Models.Monster;
 import montero.app_movil_lot5.R;
 

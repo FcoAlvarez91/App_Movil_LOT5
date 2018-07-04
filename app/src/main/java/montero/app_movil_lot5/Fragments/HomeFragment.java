@@ -1,5 +1,4 @@
-package montero.app_movil_lot5.fragments;
-
+package montero.app_movil_lot5.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,13 +8,14 @@ import android.view.ViewGroup;
 
 import montero.app_movil_lot5.R;
 
+
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TravelRulesFragment extends Fragment {
+public class HomeFragment extends Fragment {
 
 
-    public TravelRulesFragment() {
+    public HomeFragment() {
         // Required empty public constructor
     }
 
@@ -24,7 +24,7 @@ public class TravelRulesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_travel_rules, container, false);
+        return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
 }
