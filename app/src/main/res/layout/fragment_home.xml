@@ -44,12 +44,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/description"
-                android:textSize="14sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/quote" />
+                android:text="@string/quote"
+                android:textSize="18sp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -66,7 +67,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/history" />
+                android:text="@string/history"
+                android:textSize="18sp" />
 
             <TextView
                 android:layout_width="match_parent"

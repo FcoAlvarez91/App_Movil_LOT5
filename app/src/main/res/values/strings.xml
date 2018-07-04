@@ -7,7 +7,6 @@
     <string name="history">Through the years, peace has reigned the Land of the Five with only minor conflicts sprouting here and there, but as time goes by, a darkness spreads, more and more present. The people are growing restless it seems like a storm is brewing. The Gods have not been seen in many years and the strange happenings have begun to occur, unexplained and unexpected. Small demons have appeared and creatures have become more aggressive.</string>
 
     <!-- Rules: Rolling -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="Rolling_Intro">Dice are a fundamental part of deciding what happens in the game and how things transcribe. When a character wants to achieve something with a chance to fail or a range of possibilities, he must roll a dice to see how well he does or what occurs.</string>
     <string name="Rolls_Basic">Different rolls have different names depending on the situation. All rolls are a 1d20 + the stat applied, but the different situations affect the modifiers to the rolls.</string>
     <string name="Combat_Roll_disclaimer">For combat rolls, see the Combat page.</string>
@@ -16,7 +15,7 @@
     <string name="Bonus_Roll">When a character has some sort of advantage in what he is about to do, he can gain Bonus(+X) to his roll, where X is the appropriate increase to the roll to be made. This can affect Attacks.\nFor example, if a character is going to roll a Int Nature Check to learn of a certain beast, and he has a book of creatures, he gains a Bonus(+4).</string>
     <string name="Penalty_Roll">The opposite of Bonus(+X), it is a reduction of X to a roll due to adverse or negative effects that hinder a characters capability to complete the task at hand. This can affect Attacks.\nFor example, a character is next to an explosion, and needs to roll an Agi Saving Throw, but his laces were tied together by the prankster Rogue, giving him a Penalty(-5).\nBonus(+X)'s and Penalty(-Y)'s add together, leaving a final result of Bonus(X-Y) or Penalty(X-Y) depending if the result of X-Y is positive or negative respectively. The final result is what counts to other effects like Rogue's Cheap Shot.</string>
 
-    <!-- Rules: Rolling -->
+    <!-- Rules: Travel -->
     <string name="Travel_Intro">Going from one place to another, by foot, on a cart or on a huge eagle. Travel is essential to all civilisations and adventurers need to travel to find new locations and explore new lands.\nFor travel, one can use up to 3 moves per day, and 3 per night if no rest is taken. Depending on if mounted or on foot, the Pace of Travel differs. Each move, you cover your Pace and may use an action if available. On foot the Pace is of 15 km per move and mounted the Pace is of 30 km per move. Pace is halved if travelling through difficult terrain or in bad weather.\nOn each move, there must be an Event roll. This is a 1d100 and if it is high enough given the circumstances, there must be a Weather, Encounter and Environment roll. For each a 1d20 is rolled to define if something happens.</string>
     <string name="Actions_Intro">These actions are gained by rolling a specific Trait Check each day, and help an adventurer in their travel. Up to one action can be used on a move, altering the move accordingly.</string>
     <string name="Roll_Effect">• 1 - 9 Grants no Action.
@@ -109,5 +108,8 @@
         <item>Wis</item>
         <item>Cha</item>
     </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
